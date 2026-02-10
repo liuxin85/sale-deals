@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import supabase from "./supabase-client";
 import { Chart } from "react-charts";
+import Form from "./Form";
 
 function Dashboard() {
   const [metrics, setMetrics] = useState([]);
@@ -32,12 +33,15 @@ function Dashboard() {
 
   const fetchMetrics = async () => {
     try {
-      const { data, error } = await supabase.from("sales_deals").select(
-        `
+      const { data, error } = await supabase
+        .from("sales_deals")
+        .select(
+          `
     name,
     value.sum()
     `,
-      );
+        )
+        .order("name");
 
       if (error) {
         throw error;
@@ -98,6 +102,7 @@ function Dashboard() {
             }}
           />
         </div>
+        <Form metrics={metrics} />
       </div>
     </div>
   );

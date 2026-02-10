@@ -1,7 +1,7 @@
 function Header() {
   return (
     <>
-      <header>
+      <header className="main-header">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
