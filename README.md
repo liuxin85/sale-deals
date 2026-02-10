@@ -24,3 +24,8 @@ Database
 
 The commands I use
 npm install @supabase/supabase-js
+
+在数据库层配置 Supabase API 的能力开关
+alter role authenticator set pgrst.db_aggregates_enabled = 'true';
+notify pgrst, 'reload config';
+
