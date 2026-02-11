@@ -1,7 +1,32 @@
+import { useState } from "react";
+import { useAuth } from "../AuthContext";
+import { useNavigate } from "react-router-dom";
+
 function Header() {
+  const [error, setError] = useState(null);
+  const { signOut, session } = useAuth();
+  const navigate = useNavigate();
+
+  console.log(session?.user);
+
+  const handleSignout = async (e) => {
+    e.preventDefault();
+
+    const { success, error } = await signOut();
+    if (success) {
+      navigate("/");
+    } else {
+      setError(error.message);
+    }
+  };
   return (
     <>
       <header className="main-header">
+        <div>
+          <p>{session?.user?.email}</p>
+          {error && <div>{error}</div>}
+          <button onClick={handleSignout}>Sign out</button>
+        </div>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
