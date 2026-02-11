@@ -1,0 +1,119 @@
+/* 容器居中与背景 */
+.sign-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 70vh;
+  padding: 20px;
+}
+
+/* 主标题样式 */
+.landing-header {
+  text-align: center;
+  font-family: "Inter", sans-serif;
+  color: #1a1a1a;
+  font-size: 2.5rem;
+  margin-top: 50px;
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+/* 表单卡片 - 体现 Paper 质感 */
+form[aria-label="Sign in form"] {
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow:
+    0 10px 25px rgba(0, 0, 0, 0.05),
+    0 1px 3px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  transition: transform 0.2s ease;
+}
+
+/* 表单内部标题 */
+.form-title {
+  margin-top: 0;
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+form p {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 24px;
+}
+
+form p a {
+  color: #2563eb; /* 专业的蓝色 */
+  text-decoration: none;
+  font-weight: 600;
+  margin-left: 5px;
+}
+
+form p a:hover {
+  text-decoration: underline;
+}
+
+/* Label 样式 */
+label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #4b5563;
+  margin-bottom: 6px;
+  margin-top: 16px;
+}
+
+/* 输入框样式 */
+.form-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+  box-sizing: border-box; /* 确保 padding 不撑开宽度 */
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.form-input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* 按钮样式 */
+.form-button {
+  width: 100%;
+  background-color: #1a1a1a; /* 酷黑色 */
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 30px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.form-button:hover {
+  background-color: #333;
+}
+
+.form-button:active {
+  transform: scale(0.98);
+}
+
+/* 辅助说明文字（隐藏但对屏幕阅读器友好） */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}

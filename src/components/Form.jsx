@@ -1,6 +1,6 @@
 import { useActionState } from "react";
 import "./Form.css"; // 引入下方定义的 CSS 文件
-import supabase from "./supabase-client";
+import supabase from "../supabase-client";
 
 function Form({ metrics }) {
   const [error, submitAction, isPending] = useActionState(
