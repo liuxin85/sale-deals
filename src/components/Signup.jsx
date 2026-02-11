@@ -5,39 +5,34 @@ import { useActionState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
-  const { session, signInUser } = useAuth();
+  const { signUpNewUser } = useAuth();
   const navigate = useNavigate();
 
   const [error, submitAction, isPending] = useActionState(
     async (previousState, formData) => {
-      // 1. Extract form data
       const email = formData.get("email");
       const password = formData.get("password");
+      const name = formData.get("name");
+      const accountType = formData.get("account-type");
 
       try {
-        // 2. Call our sign-in function
         const {
           success,
           data,
-          error: signInError,
-        } = await signInUser(email, password);
+          error: signUpError,
+        } = await signUpNewUser(email, password, name, accountType);
 
-        // 3. Handle known errors
-        if (signInError) {
-          return new Error(signInError);
+        if (signUpError) {
+          return new Error(signUpError);
         }
 
-        // 4. handle sucess (e.g. redirect, return null)
         if (success && data?.session) {
           navigate("/dashboard");
           return null;
         }
-
-        // 5. Handle any other cases
         return null;
       } catch (error) {
-        // 6. Handle unexprect error (return error)
-        console.error("Sign in error: ", error.message);
+        console.error("Sign up error: ", error.message);
         return new Error("An unexprected error occurred. Please try again.");
       }
     },
@@ -60,9 +55,23 @@ const Signup = () => {
 
           <h2 className="form-title">Sign Up Today</h2>
           <p>
-            Already have an account? Sign in
+            Already have an account?
             <Link to="/">Sign in</Link>
           </p>
+
+          <label htmlFor="name">Name</label>
+          <input
+            type="text"
+            className="form-input"
+            name="name"
+            id="name"
+            placeholder=""
+            required
+            aria-required="true"
+            aria-invalid={error ? "true" : "false"}
+            aria-describedby={error ? "signup-error" : undefined}
+            disabled={isPending}
+          />
 
           <label htmlFor="email">Email</label>
           <input
@@ -74,7 +83,7 @@ const Signup = () => {
             required
             aria-required="true"
             aria-invalid={error ? "true" : "false"}
-            aria-describedby={error ? "signin-error" : undefined}
+            aria-describedby={error ? "signup-error" : undefined}
             disabled={isPending}
           />
 
@@ -88,9 +97,31 @@ const Signup = () => {
             required
             aria-required="true"
             aria-invalid={error ? "true" : "false"}
-            aria-describedby={error ? "signin-error" : undefined}
+            aria-describedby={error ? "signup-error" : undefined}
             disabled={isPending}
           />
+          <fieldset
+            className="form-fieldset"
+            aria-required="true"
+            aria-label="Select your fole"
+          >
+            <legend>Select your role</legend>
+            <div className="radio-groupd">
+              <label>
+                <input
+                  type="radio"
+                  name="account-type"
+                  value="admin"
+                  required
+                />
+                Admin
+              </label>
+              <label>
+                <input type="radio" name="account-type" value="rep" required />
+                Sales Rep
+              </label>
+            </div>
+          </fieldset>
 
           <button
             type="submit"
