@@ -1,13 +1,19 @@
 import { useActionState } from "react";
 import "./Form.css"; // 引入下方定义的 CSS 文件
 import supabase from "../supabase-client";
+import { useAuth } from "../AuthContext";
 
 function Form({ metrics }) {
+  const { users } = useAuth();
   const [error, submitAction, isPending] = useActionState(
     async (previousState, formData) => {
+      const submitedName = formData.get("name")
+
+      // Find the user object from 'users' array
+     const user =  users.find(u => u.name === submitedName)
       // Action logic
       const newDeal = {
-        name: formData.get("name"),
+        user_id: user.id,
         value: formData.get("value"),
       };
       console.log(newDeal);
@@ -26,9 +32,9 @@ function Form({ metrics }) {
   );
 
   const generateOptions = () => {
-    return metrics?.map((metric) => (
-      <option key={metric.name} value={metric.name}>
-        {metric.name}
+    return users?.map((user) => (
+      <option key={user.id} value={user.name}>
+        {user.name}
       </option>
     ));
   };
